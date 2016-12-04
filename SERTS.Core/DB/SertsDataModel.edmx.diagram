@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5afff734bca945d8aeaf03e9e6d1bfb7" Name="Diagram1">
+        <EntityTypeShape EntityType="SertsModel.Team" Width="1.5" PointX="4.5" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SertsModel.Student" Width="1.5" PointX="1" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SertsModel.Participant" Width="1.5" PointX="2" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SertsModel.Event" Width="1.5" PointX="6.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SertsModel.Result" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SertsModel.User" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <AssociationConnector Association="SertsModel.FK__Renginio___Koman__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="SertsModel.FK__Mokinys__Prisiju__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="SertsModel.FK__Renginio___Mokin__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="SertsModel.FK__Taskai__Mokinio___37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="SertsModel.FK__Renginio___Rengi__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="SertsModel.FK__Taskai__Renginio__36B12243" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

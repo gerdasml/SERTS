@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SertsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Komanda">
+          <Key>
+            <PropertyRef Name="Pavadinimas" />
+          </Key>
+          <Property Name="Pavadinimas" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sukis" Type="varchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="Mokinys">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prisijungimo_vardas" Type="varchar" MaxLength="20" />
+          <Property Name="Svecias" Type="bit" Nullable="false" />
+          <Property Name="El_pastas" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vardas" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Pavarde" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Tel_nr" Type="char" MaxLength="12" />
+          <Property Name="Klase" Type="varchar" MaxLength="3" />
+          <Property Name="Gimimo_data" Type="date" Nullable="false" />
+          <Property Name="Mokykla" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Renginio_dalyviai">
+          <Key>
+            <PropertyRef Name="Mokinio_id" />
+            <PropertyRef Name="Renginio_Nr" />
+          </Key>
+          <Property Name="Komandos_pavadinimas" Type="varchar" MaxLength="50" />
+          <Property Name="Mokinio_id" Type="int" Nullable="false" />
+          <Property Name="Renginio_Nr" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Renginys">
+          <Key>
+            <PropertyRef Name="Nr" />
+          </Key>
+          <Property Name="Nr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sporto_saka" Type="varchar" MaxLength="50" />
+          <Property Name="Renginio_tipas" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Max_dalyviu_skaicius" Type="smallint" />
+          <Property Name="Amziaus_limitas" Type="smallint" />
+          <Property Name="Aprasymas" Type="varchar" MaxLength="2000" />
+          <Property Name="Pavadinimas" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Vietos_ilguma" Type="float" Nullable="false" />
+          <Property Name="Vietos_platuma" Type="float" Nullable="false" />
+          <Property Name="Laikas" Type="datetime" />
+          <Property Name="Remejas" Type="bit" Nullable="false" />
+          <Property Name="Teisejas" Type="bit" Nullable="false" />
+          <Property Name="Svecias" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Taskai">
+          <Key>
+            <PropertyRef Name="Tasku_kiekis" />
+          </Key>
+          <Property Name="Tasku_kiekis" Type="smallint" Nullable="false" />
+          <Property Name="Renginio_nr" Type="int" Nullable="false" />
+          <Property Name="Mokinio_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vartotojas">
+          <Key>
+            <PropertyRef Name="Prisijungimo_vardas" />
+          </Key>
+          <Property Name="Prisijungimo_vardas" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Slaptazodis" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="Administratorius" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Mokinys__Prisiju__33D4B598">
+          <End Role="Vartotojas" Type="Self.Vartotojas" Multiplicity="0..1" />
+          <End Role="Mokinys" Type="Self.Mokinys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vartotojas">
+              <PropertyRef Name="Prisijungimo_vardas" />
+            </Principal>
+            <Dependent Role="Mokinys">
+              <PropertyRef Name="Prisijungimo_vardas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Renginio___Koman__34C8D9D1">
+          <End Role="Komanda" Type="Self.Komanda" Multiplicity="0..1" />
+          <End Role="Renginio_dalyviai" Type="Self.Renginio_dalyviai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Komanda">
+              <PropertyRef Name="Pavadinimas" />
+            </Principal>
+            <Dependent Role="Renginio_dalyviai">
+              <PropertyRef Name="Komandos_pavadinimas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Renginio___Mokin__35BCFE0A">
+          <End Role="Mokinys" Type="Self.Mokinys" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Renginio_dalyviai" Type="Self.Renginio_dalyviai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mokinys">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Renginio_dalyviai">
+              <PropertyRef Name="Mokinio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Renginio___Rengi__3E52440B">
+          <End Role="Renginys" Type="Self.Renginys" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Renginio_dalyviai" Type="Self.Renginio_dalyviai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Renginys">
+              <PropertyRef Name="Nr" />
+            </Principal>
+            <Dependent Role="Renginio_dalyviai">
+              <PropertyRef Name="Renginio_Nr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Taskai__Mokinio___37A5467C">
+          <End Role="Mokinys" Type="Self.Mokinys" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Taskai" Type="Self.Taskai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mokinys">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Taskai">
+              <PropertyRef Name="Mokinio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Taskai__Renginio__36B12243">
+          <End Role="Renginys" Type="Self.Renginys" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Taskai" Type="Self.Taskai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Renginys">
+              <PropertyRef Name="Nr" />
+            </Principal>
+            <Dependent Role="Taskai">
+              <PropertyRef Name="Renginio_nr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SertsModelStoreContainer">
+          <EntitySet Name="Komanda" EntityType="Self.Komanda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mokinys" EntityType="Self.Mokinys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Renginio_dalyviai" EntityType="Self.Renginio_dalyviai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Renginys" EntityType="Self.Renginys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Taskai" EntityType="Self.Taskai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vartotojas" EntityType="Self.Vartotojas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Mokinys__Prisiju__33D4B598" Association="Self.FK__Mokinys__Prisiju__33D4B598">
+            <End Role="Vartotojas" EntitySet="Vartotojas" />
+            <End Role="Mokinys" EntitySet="Mokinys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Renginio___Koman__34C8D9D1" Association="Self.FK__Renginio___Koman__34C8D9D1">
+            <End Role="Komanda" EntitySet="Komanda" />
+            <End Role="Renginio_dalyviai" EntitySet="Renginio_dalyviai" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Renginio___Mokin__35BCFE0A" Association="Self.FK__Renginio___Mokin__35BCFE0A">
+            <End Role="Mokinys" EntitySet="Mokinys" />
+            <End Role="Renginio_dalyviai" EntitySet="Renginio_dalyviai" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Renginio___Rengi__3E52440B" Association="Self.FK__Renginio___Rengi__3E52440B">
+            <End Role="Renginys" EntitySet="Renginys" />
+            <End Role="Renginio_dalyviai" EntitySet="Renginio_dalyviai" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Taskai__Mokinio___37A5467C" Association="Self.FK__Taskai__Mokinio___37A5467C">
+            <End Role="Mokinys" EntitySet="Mokinys" />
+            <End Role="Taskai" EntitySet="Taskai" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Taskai__Renginio__36B12243" Association="Self.FK__Taskai__Renginio__36B12243">
+            <End Role="Renginys" EntitySet="Renginys" />
+            <End Role="Taskai" EntitySet="Taskai" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SertsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Motto" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Participant" Relationship="Self.FK__Renginio___Koman__34C8D9D1" FromRole="Komanda" ToRole="Renginio_dalyviai" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Guest" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="Class" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="School" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Mokinys__Prisiju__33D4B598" FromRole="Mokinys" ToRole="Vartotojas" />
+          <NavigationProperty Name="Participant" Relationship="Self.FK__Renginio___Mokin__35BCFE0A" FromRole="Mokinys" ToRole="Renginio_dalyviai" />
+          <NavigationProperty Name="Result" Relationship="Self.FK__Taskai__Mokinio___37A5467C" FromRole="Mokinys" ToRole="Taskai" />
+        </EntityType>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="EventNumber" />
+          </Key>
+          <Property Name="TeamName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="EventNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__Renginio___Koman__34C8D9D1" FromRole="Renginio_dalyviai" ToRole="Komanda" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Renginio___Mokin__35BCFE0A" FromRole="Renginio_dalyviai" ToRole="Mokinys" />
+          <NavigationProperty Name="Event" Relationship="Self.FK__Renginio___Rengi__3E52440B" FromRole="Renginio_dalyviai" ToRole="Renginys" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Number" />
+          </Key>
+          <Property Name="Number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EventType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParticipantsAllowed" Type="Int16" />
+          <Property Name="AgeLimit" Type="Int16" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="Sponcor" Type="Boolean" Nullable="false" />
+          <Property Name="Judge" Type="Boolean" Nullable="false" />
+          <Property Name="Guest" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Participant" Relationship="Self.FK__Renginio___Rengi__3E52440B" FromRole="Renginys" ToRole="Renginio_dalyviai" />
+          <NavigationProperty Name="Result" Relationship="Self.FK__Taskai__Renginio__36B12243" FromRole="Renginys" ToRole="Taskai" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="Points" />
+          </Key>
+          <Property Name="Points" Type="Int16" Nullable="false" />
+          <Property Name="EventNumber" Type="Int32" Nullable="false" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Taskai__Mokinio___37A5467C" FromRole="Taskai" ToRole="Mokinys" />
+          <NavigationProperty Name="Event" Relationship="Self.FK__Taskai__Renginio__36B12243" FromRole="Taskai" ToRole="Renginys" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin" Type="Boolean" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Mokinys__Prisiju__33D4B598" FromRole="Vartotojas" ToRole="Mokinys" />
+        </EntityType>
+        <Association Name="FK__Renginio___Koman__34C8D9D1">
+          <End Role="Komanda" Type="SertsModel.Team" Multiplicity="0..1" />
+          <End Role="Renginio_dalyviai" Type="SertsModel.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Komanda">
+              <PropertyRef Name="Title" />
+            </Principal>
+            <Dependent Role="Renginio_dalyviai">
+              <PropertyRef Name="TeamName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mokinys__Prisiju__33D4B598">
+          <End Role="Vartotojas" Type="SertsModel.User" Multiplicity="0..1" />
+          <End Role="Mokinys" Type="SertsModel.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vartotojas">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Mokinys">
+              <PropertyRef Name="Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Renginio___Mokin__35BCFE0A">
+          <End Role="Mokinys" Type="SertsModel.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Renginio_dalyviai" Type="SertsModel.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mokinys">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Renginio_dalyviai">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Taskai__Mokinio___37A5467C">
+          <End Role="Mokinys" Type="SertsModel.Student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Taskai" Type="SertsModel.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mokinys">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Taskai">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Renginio___Rengi__3E52440B">
+          <End Role="Renginys" Type="SertsModel.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Renginio_dalyviai" Type="SertsModel.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Renginys">
+              <PropertyRef Name="Number" />
+            </Principal>
+            <Dependent Role="Renginio_dalyviai">
+              <PropertyRef Name="EventNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Taskai__Renginio__36B12243">
+          <End Role="Renginys" Type="SertsModel.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Taskai" Type="SertsModel.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Renginys">
+              <PropertyRef Name="Number" />
+            </Principal>
+            <Dependent Role="Taskai">
+              <PropertyRef Name="EventNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SertsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Teams" EntityType="SertsModel.Team" />
+          <EntitySet Name="Students" EntityType="SertsModel.Student" />
+          <EntitySet Name="Participants" EntityType="SertsModel.Participant" />
+          <EntitySet Name="Renginys" EntityType="SertsModel.Event" />
+          <EntitySet Name="Results" EntityType="SertsModel.Result" />
+          <EntitySet Name="Users" EntityType="SertsModel.User" />
+          <AssociationSet Name="FK__Renginio___Koman__34C8D9D1" Association="Self.FK__Renginio___Koman__34C8D9D1">
+            <End Role="Komanda" EntitySet="Teams" />
+            <End Role="Renginio_dalyviai" EntitySet="Participants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mokinys__Prisiju__33D4B598" Association="Self.FK__Mokinys__Prisiju__33D4B598">
+            <End Role="Vartotojas" EntitySet="Users" />
+            <End Role="Mokinys" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Renginio___Mokin__35BCFE0A" Association="Self.FK__Renginio___Mokin__35BCFE0A">
+            <End Role="Mokinys" EntitySet="Students" />
+            <End Role="Renginio_dalyviai" EntitySet="Participants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Taskai__Mokinio___37A5467C" Association="Self.FK__Taskai__Mokinio___37A5467C">
+            <End Role="Mokinys" EntitySet="Students" />
+            <End Role="Taskai" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Renginio___Rengi__3E52440B" Association="Self.FK__Renginio___Rengi__3E52440B">
+            <End Role="Renginys" EntitySet="Renginys" />
+            <End Role="Renginio_dalyviai" EntitySet="Participants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Taskai__Renginio__36B12243" Association="Self.FK__Taskai__Renginio__36B12243">
+            <End Role="Renginys" EntitySet="Renginys" />
+            <End Role="Taskai" EntitySet="Results" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SertsModelStoreContainer" CdmEntityContainer="SertsEntities">
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="SertsModel.Team">
+              <MappingFragment StoreEntitySet="Komanda">
+                <ScalarProperty Name="Title" ColumnName="Pavadinimas" />
+                <ScalarProperty Name="Motto" ColumnName="Sukis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="SertsModel.Student">
+              <MappingFragment StoreEntitySet="Mokinys">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Prisijungimo_vardas" />
+                <ScalarProperty Name="Guest" ColumnName="Svecias" />
+                <ScalarProperty Name="Email" ColumnName="El_pastas" />
+                <ScalarProperty Name="Name" ColumnName="Vardas" />
+                <ScalarProperty Name="Surname" ColumnName="Pavarde" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="Tel_nr" />
+                <ScalarProperty Name="Class" ColumnName="Klase" />
+                <ScalarProperty Name="DOB" ColumnName="Gimimo_data" />
+                <ScalarProperty Name="School" ColumnName="Mokykla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Participants">
+            <EntityTypeMapping TypeName="SertsModel.Participant">
+              <MappingFragment StoreEntitySet="Renginio_dalyviai">
+                <ScalarProperty Name="TeamName" ColumnName="Komandos_pavadinimas" />
+                <ScalarProperty Name="StudentId" ColumnName="Mokinio_id" />
+                <ScalarProperty Name="EventNumber" ColumnName="Renginio_Nr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Renginys">
+            <EntityTypeMapping TypeName="SertsModel.Event">
+              <MappingFragment StoreEntitySet="Renginys">
+                <ScalarProperty Name="Number" ColumnName="Nr" />
+                <ScalarProperty Name="Sport" ColumnName="Sporto_saka" />
+                <ScalarProperty Name="EventType" ColumnName="Renginio_tipas" />
+                <ScalarProperty Name="ParticipantsAllowed" ColumnName="Max_dalyviu_skaicius" />
+                <ScalarProperty Name="AgeLimit" ColumnName="Amziaus_limitas" />
+                <ScalarProperty Name="Description" ColumnName="Aprasymas" />
+                <ScalarProperty Name="Name" ColumnName="Pavadinimas" />
+                <ScalarProperty Name="Longitude" ColumnName="Vietos_ilguma" />
+                <ScalarProperty Name="Latitude" ColumnName="Vietos_platuma" />
+                <ScalarProperty Name="DateTime" ColumnName="Laikas" />
+                <ScalarProperty Name="Sponcor" ColumnName="Remejas" />
+                <ScalarProperty Name="Judge" ColumnName="Teisejas" />
+                <ScalarProperty Name="Guest" ColumnName="Svecias" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="SertsModel.Result">
+              <MappingFragment StoreEntitySet="Taskai">
+                <ScalarProperty Name="Points" ColumnName="Tasku_kiekis" />
+                <ScalarProperty Name="EventNumber" ColumnName="Renginio_nr" />
+                <ScalarProperty Name="StudentId" ColumnName="Mokinio_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SertsModel.User">
+              <MappingFragment StoreEntitySet="Vartotojas">
+                <ScalarProperty Name="Login" ColumnName="Prisijungimo_vardas" />
+                <ScalarProperty Name="Password" ColumnName="Slaptazodis" />
+                <ScalarProperty Name="Admin" ColumnName="Administratorius" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
