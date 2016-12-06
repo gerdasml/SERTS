@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC129DAD-4120-4F1B-A203-0E5995695A97}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{91231BED-C42D-4129-ABF9-85331DC9E136}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SERTS.Core</RootNamespace>
-    <AssemblyName>SERTS.Core</AssemblyName>
+    <RootNamespace>Test</RootNamespace>
+    <AssemblyName>Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,8 +44,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,70 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InterfacesOfMethods.cs" />
-    <Compile Include="DataManager.cs" />
-    <Compile Include="Class3.cs" />
-    <Compile Include="DB\Event.cs">
-      <DependentUpon>SertsDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\Participant.cs">
-      <DependentUpon>SertsDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\Result.cs">
-      <DependentUpon>SertsDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\SertsDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SertsDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\SertsDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SertsDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\SertsDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SertsDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DB\Student.cs">
-      <DependentUpon>SertsDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\Team.cs">
-      <DependentUpon>SertsDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\User.cs">
-      <DependentUpon>SertsDataModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="DB\SertsDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SertsDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DB\SertsDataModel.edmx.diagram">
-      <DependentUpon>SertsDataModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DB\SertsDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SertsDataModel.edmx</DependentUpon>
-      <LastGenOutput>SertsDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DB\SertsDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SertsDataModel.edmx</DependentUpon>
-      <LastGenOutput>SertsDataModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ProjectReference Include="..\SERTS.Core\SERTS.Core.csproj">
+      <Project>{fc129dad-4120-4f1b-a203-0e5995695a97}</Project>
+      <Name>SERTS.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

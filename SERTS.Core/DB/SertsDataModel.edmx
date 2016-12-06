@@ -348,7 +348,7 @@
           <EntitySet Name="Teams" EntityType="SertsModel.Team" />
           <EntitySet Name="Students" EntityType="SertsModel.Student" />
           <EntitySet Name="Participants" EntityType="SertsModel.Participant" />
-          <EntitySet Name="Renginys" EntityType="SertsModel.Event" />
+          <EntitySet Name="Events" EntityType="SertsModel.Event" />
           <EntitySet Name="Results" EntityType="SertsModel.Result" />
           <EntitySet Name="Users" EntityType="SertsModel.User" />
           <AssociationSet Name="FK__Renginio___Koman__34C8D9D1" Association="Self.FK__Renginio___Koman__34C8D9D1">
@@ -368,11 +368,11 @@
             <End Role="Taskai" EntitySet="Results" />
           </AssociationSet>
           <AssociationSet Name="FK__Renginio___Rengi__3E52440B" Association="Self.FK__Renginio___Rengi__3E52440B">
-            <End Role="Renginys" EntitySet="Renginys" />
+            <End Role="Renginys" EntitySet="Events" />
             <End Role="Renginio_dalyviai" EntitySet="Participants" />
           </AssociationSet>
           <AssociationSet Name="FK__Taskai__Renginio__36B12243" Association="Self.FK__Taskai__Renginio__36B12243">
-            <End Role="Renginys" EntitySet="Renginys" />
+            <End Role="Renginys" EntitySet="Events" />
             <End Role="Taskai" EntitySet="Results" />
           </AssociationSet>
         </EntityContainer>
@@ -415,7 +415,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Renginys">
+          <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="SertsModel.Event">
               <MappingFragment StoreEntitySet="Renginys">
                 <ScalarProperty Name="Number" ColumnName="Nr" />

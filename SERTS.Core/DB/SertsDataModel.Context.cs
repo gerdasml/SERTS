@@ -28,7 +28,7 @@ namespace SERTS.Core.DB
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Participant> Participants { get; set; }
-        public virtual DbSet<Event> Renginys { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Result> Results { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
