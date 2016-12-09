@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SERTS.Core", "SERTS.Core\SE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{91231BED-C42D-4129-ABF9-85331DC9E136}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SERTS.UI", "SERTS.UI\SERTS.UI.csproj", "{15ACAFD5-233B-4718-B48B-93379A5D3154}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{91231BED-C42D-4129-ABF9-85331DC9E136}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91231BED-C42D-4129-ABF9-85331DC9E136}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91231BED-C42D-4129-ABF9-85331DC9E136}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15ACAFD5-233B-4718-B48B-93379A5D3154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15ACAFD5-233B-4718-B48B-93379A5D3154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15ACAFD5-233B-4718-B48B-93379A5D3154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15ACAFD5-233B-4718-B48B-93379A5D3154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

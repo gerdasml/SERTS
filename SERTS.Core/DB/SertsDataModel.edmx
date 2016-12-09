@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SertsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SertsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Komanda">
           <Key>
             <PropertyRef Name="Pavadinimas" />
@@ -56,7 +56,8 @@
         </EntityType>
         <EntityType Name="Taskai">
           <Key>
-            <PropertyRef Name="Tasku_kiekis" />
+            <PropertyRef Name="Renginio_nr" />
+            <PropertyRef Name="Mokinio_id" />
           </Key>
           <Property Name="Tasku_kiekis" Type="smallint" Nullable="false" />
           <Property Name="Renginio_nr" Type="int" Nullable="false" />
@@ -182,8 +183,7 @@
             <End Role="Taskai" EntitySet="Taskai" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SertsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -247,7 +247,8 @@
         </EntityType>
         <EntityType Name="Result">
           <Key>
-            <PropertyRef Name="Points" />
+            <PropertyRef Name="EventNumber" />
+            <PropertyRef Name="StudentId" />
           </Key>
           <Property Name="Points" Type="Int16" Nullable="false" />
           <Property Name="EventNumber" Type="Int32" Nullable="false" />

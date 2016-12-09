@@ -21,7 +21,14 @@ namespace Test
                 }
             }*/
             var manager = new DataManager();
-            foreach(var e in manager.GetEvents())
+            //manager.AddEvent(new Event { Name = "Test", EventType = "Individualus", Latitude = 0, Longitude = 0, Sponcor = false, Judge = true, Guest = false, DateTime = DateTime.Now });
+            //manager.AddStudent(new Student { Guest=false, Name = "Test", Email="test@email.com", Surname = "Student", DOB = DateTime.Now.AddYears(-10), School = "Test Gymnasium" });
+            //manager.RegisterPerson(new Participant { EventNumber=4, StudentId=4 });
+            //manager.AddResult(new Result { StudentId = 4, EventNumber = 4, Points = 69 });
+            //manager.UpdateStudent(4, new Student { Guest = false, Name = "Test2", Email = "test@email.com", Surname = "Student2", DOB = DateTime.Now.AddYears(-10), School = "Test2 Gymnasium" });
+            //manager.UpdateEvent(4, new Event { Name = "Test2", EventType = "Individualus", Latitude = 0, Longitude = 0, Sponcor = false, Judge = true, Guest = false, DateTime = DateTime.Now.AddDays(3) });
+            //manager.UpdateResult(4, 4, 70);
+            foreach (var e in manager.GetEvents())
             {
                 Console.WriteLine("{0}", e.Name);
             }
