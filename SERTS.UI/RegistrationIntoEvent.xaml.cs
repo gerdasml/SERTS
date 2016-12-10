@@ -1,0 +1,41 @@
+﻿using SERTS.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace SERTS.UI
+{
+    /// <summary>
+    /// Interaction logic for RegistrationIntoEvent.xaml
+    /// </summary>
+    public partial class RegistrationIntoEvent : Window
+    {
+        public RegistrationIntoEvent(int eventId, IDataManager manager)
+        {
+            InitializeComponent();
+            var registeredStudents = manager.GetParticipants(eventId);
+            var notRegisteredStudents = manager.GetStudents().Where(x => registeredStudents.Where(y => y.Id == x.Id).Count() == 0);
+            studentsListBox.ItemsSource = notRegisteredStudents;
+        }
+
+        private void cancelAddParticipant_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void addParticipant_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+}

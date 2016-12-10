@@ -28,7 +28,7 @@
                     <TextBox x:Name="classBox" HorizontalAlignment="Left" Height="23" Margin="115,169,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159"/>
                     <TextBox x:Name="schoolBox" HorizontalAlignment="Left" Height="23" Margin="115,200,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159"/>
                     <CheckBox x:Name="studentGuestBox" Content="" HorizontalAlignment="Left" Margin="115,233,0,0" VerticalAlignment="Top"/>
-                    
+
                     <Button x:Name="addStudentButton" Content="Pridėti mokinį" HorizontalAlignment="Left" Margin="103,276,0,0" VerticalAlignment="Top" Width="117" Click="addStudentButton_Click"/>
                     <Button x:Name="deleteStudentButton" Content="Ištrinti mokinį" HorizontalAlignment="Left" Margin="305,330,0,0" VerticalAlignment="Top" Width="100" Click="deleteStudentButton_Click"/>
 
@@ -58,7 +58,7 @@
             </TabItem>
             <TabItem Header="Renginiai">
                 <Grid Background="#FF494444" Margin="0,-5,0,135">
-                    <ListBox x:Name="eventsListBox" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" Height="303" Width="428" ItemsSource="{Binding list}">
+                    <ListBox x:Name="eventsListBox" SelectionChanged="eventsListBox_SelectionChanged" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" Height="303" Width="212" ItemsSource="{Binding list}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
@@ -67,31 +67,49 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+                    <ListBox x:Name="registeredStudents" HorizontalAlignment="Left" Margin="512,10,0,0" VerticalAlignment="Top" Height="303" Width="212" ItemsSource="{Binding list}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <Label>
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1}">
+                                                        <Binding Path="Name"/>
+                                                        <Binding Path="Surname"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <Label x:Name="label" Content="Pavadinimas" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="eventNameBox" HorizontalAlignment="Left" Height="20" Margin="104,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="168"/>
                     <Label x:Name="label1" Content="Aprašymas" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label2" Content="Renginio tipas" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label3" Content="Sporto šaka" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label4" Content="Data ir laikas" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label5" Content="Amžiaus limitas" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="label6" Text="Maksimalus dalyvių skaičius"  TextWrapping="Wrap" HorizontalAlignment="Left" Margin="14,237,0,0" VerticalAlignment="Top" Height="34" Width="92"/>
+                    <TextBlock x:Name="label6" Text="Maksimalus dalyvių skaičius"  TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="34" Width="92"/>
                     <Label x:Name="label7" Content="" HorizontalAlignment="Left" Margin="10,276,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="eventDescriptionBox" HorizontalAlignment="Left" Height="37" Margin="104,41,0,0" TextWrapping="Wrap" AcceptsReturn="True" Text="" VerticalAlignment="Top" Width="168"/>
                     <TextBox x:Name="eventSportBox" HorizontalAlignment="Left" Height="23" Margin="104,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="168"/>
-                    <xctk:MaskedTextBox x:Name="dateTimeBox" Mask="0000-00-00 00:00:00" CaretIndex="0" ValueDataType="{x:Type s:DateTime}" HorizontalAlignment="Left" Height="23" Margin="104,157,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="117"/>
+                    <xctk:MaskedTextBox x:Name="dateTimeBox" Mask="0000-00-00 00:00" CaretIndex="0" ValueDataType="{x:Type s:DateTime}" HorizontalAlignment="Left" Height="23" Margin="104,157,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="117"/>
                     <xctk:IntegerUpDown x:Name="ageLimitBox" HorizontalAlignment="Left" Height="23" Margin="104,198,0,0" Minimum="6" Maximum="21" Value="6" VerticalAlignment="Top" Width="64"/>
-                    <xctk:IntegerUpDown x:Name="maxParticipantBox" HorizontalAlignment="Left" Height="23" Margin="104,241,0,0" Minimum="0" Value="0" VerticalAlignment="Top" Width="64"/>
-                    <RadioButton x:Name="eventTypeIndividual" IsChecked="True" Content="Individualus" HorizontalAlignment="Left" Margin="104,94,0,0" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="eventTypeTeams" Content="Komandinis" HorizontalAlignment="Left" Margin="191,94,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="judgeBox" Content="Teisėjas" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="sponsorBox" Content="Rėmėjas" HorizontalAlignment="Left" Margin="104,302,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="guestBox" Content="Svečias" HorizontalAlignment="Left" Margin="201,302,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label8" Content="Ar reikalingi:" HorizontalAlignment="Left" Margin="10,271,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="addEventButton" Content="Pridėti renginį" HorizontalAlignment="Left" Margin="104,349,0,0" VerticalAlignment="Top" Width="93" Background="#FF538B2D" Click="addEventButton_Click"/>
-                    <Button x:Name="deleteEventButton" Content="Ištrinti renginį" HorizontalAlignment="Left" Margin="289,334,0,0" VerticalAlignment="Top" Width="160"/>
-                    <Button x:Name="registerStudentButton" Content="Užregistruoti mokinį" HorizontalAlignment="Left" Margin="563,334,0,0" VerticalAlignment="Top" Width="160"/>
-                    <Button x:Name="unregisterStudentButton" Content="Išregistruoti mokinį" HorizontalAlignment="Left" Margin="289,379,0,0" VerticalAlignment="Top" Width="160"/>
-                    <Button x:Name="getRegisteredStudentButton" Content="Pamatyti užsiregistravusius" HorizontalAlignment="Left" Margin="563,379,0,0" VerticalAlignment="Top" Width="160"/>
+                    <xctk:IntegerUpDown x:Name="maxParticipantBox" HorizontalAlignment="Left" Height="23" Margin="104,89,0,0" Minimum="0" Value="0" VerticalAlignment="Top" Width="64"/>
+                    <CheckBox x:Name="judgeBox" Content="Teisėjas" HorizontalAlignment="Left" Margin="10,269,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="sponsorBox" Content="Rėmėjas" HorizontalAlignment="Left" Margin="104,269,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="guestBox" Content="Svečias" HorizontalAlignment="Left" Margin="202,269,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label8" Content="Ar reikalingi:" HorizontalAlignment="Left" Margin="9,235,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="addEventButton" Content="Pridėti renginį" HorizontalAlignment="Left" Margin="70,339,0,0" VerticalAlignment="Top" Width="112" Background="#FF538B2D" Click="addEventButton_Click"/>
+                    <Button x:Name="deleteEventButton" Content="Ištrinti renginį" HorizontalAlignment="Left" Margin="295,334,0,0" VerticalAlignment="Top" Width="155" Click="deleteEventButton_Click"/>
+                    <Button x:Name="registerStudentButton" Content="Užregistruoti mokinį" HorizontalAlignment="Left" Margin="568,334,0,0" VerticalAlignment="Top" Width="155" Click="registerStudentButton_Click"/>
+                    <Button x:Name="unregisterStudentButton" Content="Išregistruoti mokinį" HorizontalAlignment="Left" Margin="295,364,0,0" VerticalAlignment="Top" Width="155" Click="unregisterStudentButton_Click"/>
+                    <Button x:Name="getRegisteredStudentButton" Content="Pamatyti užsiregistravusius" HorizontalAlignment="Left" Margin="568,364,0,0" VerticalAlignment="Top" Width="155"/>
+                    <Button x:Name="deselectEventsButton" Content="Atžymėti pasirinkimą" HorizontalAlignment="Left" Margin="295,395,0,0" VerticalAlignment="Top" Width="155" Click="deselectEventsButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Rezultatai">

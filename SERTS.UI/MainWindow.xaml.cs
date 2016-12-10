@@ -41,7 +41,7 @@ namespace SERTS.UI
         {
             string name = eventNameBox.Text;
             string description = eventDescriptionBox.Text;
-            string eventType = eventTypeIndividual.IsChecked.Value ? "Individualus" : "Komandinis";
+            string eventType =  "Individualus";
             string sport = eventSportBox.Text;
             DateTime dateTime = DateTime.Parse(dateTimeBox.Text);
             short ageLimit = (short)ageLimitBox.Value.Value;
@@ -66,9 +66,18 @@ namespace SERTS.UI
                 Longitude = 0
             };
 
-            _manager.AddEvent(ev);
-            System.Windows.MessageBox.Show("Renginys sėkmingai pridėtas!");
-
+            var selectedEvent = eventsListBox.SelectedValue as Event;
+            if (selectedEvent == null) // niekas nepasirinkta sarase, reiskia pridedinejam
+            {
+                _manager.AddEvent(ev);
+                System.Windows.MessageBox.Show("Renginys sėkmingai pridėtas!");
+            }
+            else
+            {
+                _manager.UpdateEvent(selectedEvent.Number, ev);
+                System.Windows.MessageBox.Show("Renginio informacija sėkmingai atnaujinta!");
+            }
+            eventsListBox.ItemsSource = _manager.GetEvents();
 
 
         }
@@ -148,6 +157,70 @@ namespace SERTS.UI
             _manager.DeleteStudent(selectedStudent.Id);
             System.Windows.MessageBox.Show("Mokinys sėkmingai ištrintas!");
             studentsListBox.ItemsSource = _manager.GetStudents();
+        }
+
+        private void eventsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedEvent = eventsListBox.SelectedValue as Event;
+            if (selectedEvent == null)
+                return; // ?
+            addEventButton.Content = "Atnaujinti renginį";
+            eventNameBox.Text = selectedEvent.Name;
+            eventDescriptionBox.Text = selectedEvent.Description;
+            eventSportBox.Text = selectedEvent.Sport;
+            dateTimeBox.Value = selectedEvent.DateTime;
+            ageLimitBox.Value = selectedEvent.AgeLimit;
+            maxParticipantBox.Value = selectedEvent.ParticipantsAllowed;
+            judgeBox.IsChecked = selectedEvent.Judge;
+            sponsorBox.IsChecked = selectedEvent.Sponcor;
+            guestBox.IsChecked = selectedEvent.Guest;
+
+            registeredStudents.ItemsSource = _manager.GetParticipants(selectedEvent.Number);
+        }
+
+        private void deselectEventsButton_Click(object sender, RoutedEventArgs e)
+        {
+            eventsListBox.UnselectAll();
+            registeredStudents.ItemsSource = null;
+            addEventButton.Content = "Pridėti renginį";
+            eventNameBox.Text = "";
+            eventDescriptionBox.Text = "";
+            eventSportBox.Text = "";
+            dateTimeBox.Text = DateTime.Now.ToString();
+            ageLimitBox.Value = 6;
+            maxParticipantBox.Value = 0;
+            judgeBox.IsChecked = false;
+            sponsorBox.IsChecked = false;
+            guestBox.IsChecked = false;
+        }
+
+        private void deleteEventButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedEvent = eventsListBox.SelectedValue as Event;
+            if (selectedEvent == null)
+                return;
+            _manager.DeleteEvent(selectedEvent.Number);
+            System.Windows.MessageBox.Show("Renginys sėkmingai ištrintas!");
+            eventsListBox.ItemsSource = _manager.GetEvents();
+        }
+
+        private void unregisterStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedEvent = eventsListBox.SelectedValue as Event;
+            var selectedStudent = registeredStudents.SelectedValue as Student;
+            if (selectedEvent == null || selectedStudent == null)
+                return;
+            _manager.DeleteParticipant(selectedStudent.Id, selectedEvent.Number);
+            registeredStudents.ItemsSource = _manager.GetParticipants(selectedEvent.Number);
+        }
+
+        private void registerStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedEvent = eventsListBox.SelectedValue as Event;
+            if (selectedEvent == null)
+                return;
+            var w = new RegistrationIntoEvent(selectedEvent.Number, _manager);
+            w.ShowDialog();
         }
     }
 }
