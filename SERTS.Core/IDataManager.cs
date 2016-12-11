@@ -11,9 +11,11 @@ namespace SERTS.Core
     {
         IEnumerable<Event> GetEvents();
         // studentName -> (eventName -> points)
-        Dictionary<string, Dictionary<string, short>> GetResults();
+        Dictionary<int, Dictionary<int, short>> GetAllResults();
         IEnumerable<Student> GetParticipants(int eventId);
         IEnumerable<Student> GetStudents();
+        short GetTotalScore(int id);
+        short GetResult(int eventNr, int studentId);
 
 
         void AddStudent(Student student);

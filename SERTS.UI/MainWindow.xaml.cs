@@ -35,6 +35,51 @@ namespace SERTS.UI
             eventsListBox.ItemsSource = events;
             var students = _manager.GetStudents();
             studentsListBox.ItemsSource = students;
+            FillResults();
+        }
+
+        private void FillResults()
+        {
+            int index = 0;
+            var studentCol = new DataGridTextColumn()
+            {
+                Header = "Mokinys",
+                Binding = new Binding(string.Format("[{0}]", index++))
+            };
+            resultsDataGrid.Columns.Clear();
+            resultsDataGrid.Items.Clear();
+
+            resultsDataGrid.Columns.Add(studentCol);
+            var allEvents = _manager.GetEvents();
+            foreach(var e in allEvents)
+            {
+                var eventCol = new DataGridTextColumn()
+                {
+                    Header = e.Name,
+                    Binding = new Binding(string.Format("[{0}]", index++))
+                };
+                resultsDataGrid.Columns.Add(eventCol);
+            }
+            var totalCol = new DataGridTextColumn()
+            {
+                Header = "Iš viso",
+                Binding = new Binding(string.Format("[{0}]", index++))
+            };
+            resultsDataGrid.Columns.Add(totalCol);
+
+            var allResults = _manager.GetAllResults();
+            var allStudents = _manager.GetStudents().ToList();
+            foreach (var studentId in allResults.Keys)
+            {
+                var item = new List<object>();
+                item.Add(allStudents.Where(x=>x.Id == studentId).Select(x=> x.Name + " " +x.Surname).FirstOrDefault());
+                foreach(var e in allEvents)
+                {
+                    item.Add(allResults[studentId][e.Number]);
+                }
+                item.Add(_manager.GetTotalScore(studentId));
+                resultsDataGrid.Items.Add(item);
+            }
         }
 
         private void addEventButton_Click(object sender, RoutedEventArgs e)
@@ -220,7 +265,36 @@ namespace SERTS.UI
             if (selectedEvent == null)
                 return;
             var w = new RegistrationIntoEvent(selectedEvent.Number, _manager);
+            w.OnStudentAdded += (s, selectedStudent) =>
+             {
+                 _manager.RegisterPerson(new Participant { StudentId = selectedStudent.Id, EventNumber = selectedEvent.Number });
+                 registeredStudents.ItemsSource = _manager.GetParticipants(selectedEvent.Number);
+             };
             w.ShowDialog();
+        }
+
+        private void pointsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedEvent = eventsListBox.SelectedValue as Event;
+            var selectedStudent = registeredStudents.SelectedValue as Student;
+            if (selectedEvent == null || selectedStudent == null)
+                return;
+            var currentResult = _manager.GetResult(selectedEvent.Number, selectedStudent.Id);
+            var rw = new ResultWindow(currentResult);
+            rw.OnResultAdded += (s, newResult) =>
+            {
+                if (currentResult == 0 && newResult == 0)
+                    return;
+                if (currentResult == 0 && newResult > 0)
+                    _manager.AddResult(new Result { StudentId = selectedStudent.Id, EventNumber = selectedEvent.Number, Points = newResult });
+                else if (currentResult > 0 && newResult == 0)
+                    _manager.DeleteResult(selectedStudent.Id, selectedEvent.Number);
+                else
+                    _manager.UpdateResult(selectedStudent.Id, selectedEvent.Number, newResult);
+                FillResults();
+            };
+            rw.ShowDialog();
+
         }
     }
 }

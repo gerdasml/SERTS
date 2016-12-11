@@ -32,7 +32,7 @@ namespace Test
             {
                 Console.WriteLine("{0}", e.Name);
             }
-            foreach (var e in manager.GetResults())
+            foreach (var e in manager.GetAllResults())
             {
                 Console.WriteLine("{0}:", e.Key);
                 foreach(var v in e.Value)

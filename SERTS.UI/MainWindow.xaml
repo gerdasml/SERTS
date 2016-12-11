@@ -104,16 +104,18 @@
                     <CheckBox x:Name="sponsorBox" Content="Rėmėjas" HorizontalAlignment="Left" Margin="104,269,0,0" VerticalAlignment="Top"/>
                     <CheckBox x:Name="guestBox" Content="Svečias" HorizontalAlignment="Left" Margin="202,269,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label8" Content="Ar reikalingi:" HorizontalAlignment="Left" Margin="9,235,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="addEventButton" Content="Pridėti renginį" HorizontalAlignment="Left" Margin="70,339,0,0" VerticalAlignment="Top" Width="112" Background="#FF538B2D" Click="addEventButton_Click"/>
+                    <Button x:Name="addEventButton" Content="Pridėti renginį" HorizontalAlignment="Left" Margin="70,339,0,0" VerticalAlignment="Top" Width="112" Background="#FFDDDDDD" Click="addEventButton_Click"/>
                     <Button x:Name="deleteEventButton" Content="Ištrinti renginį" HorizontalAlignment="Left" Margin="295,334,0,0" VerticalAlignment="Top" Width="155" Click="deleteEventButton_Click"/>
                     <Button x:Name="registerStudentButton" Content="Užregistruoti mokinį" HorizontalAlignment="Left" Margin="568,334,0,0" VerticalAlignment="Top" Width="155" Click="registerStudentButton_Click"/>
-                    <Button x:Name="unregisterStudentButton" Content="Išregistruoti mokinį" HorizontalAlignment="Left" Margin="295,364,0,0" VerticalAlignment="Top" Width="155" Click="unregisterStudentButton_Click"/>
-                    <Button x:Name="getRegisteredStudentButton" Content="Pamatyti užsiregistravusius" HorizontalAlignment="Left" Margin="568,364,0,0" VerticalAlignment="Top" Width="155"/>
-                    <Button x:Name="deselectEventsButton" Content="Atžymėti pasirinkimą" HorizontalAlignment="Left" Margin="295,395,0,0" VerticalAlignment="Top" Width="155" Click="deselectEventsButton_Click"/>
+                    <Button x:Name="unregisterStudentButton" Content="Išregistruoti mokinį" HorizontalAlignment="Left" Margin="568,364,0,0" VerticalAlignment="Top" Width="155" Click="unregisterStudentButton_Click"/>
+                    <Button x:Name="deselectEventsButton" Content="Atžymėti pasirinkimą" HorizontalAlignment="Left" Margin="295,364,0,0" VerticalAlignment="Top" Width="155" Click="deselectEventsButton_Click"/>
+                    <Button x:Name="pointsButton" Content="Taškai" HorizontalAlignment="Left" Margin="474,344,0,0" VerticalAlignment="Top" Width="75" Click="pointsButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Rezultatai">
-                <Grid Background="#FF494444"/>
+                <Grid Background="#FF494444">
+                    <DataGrid x:Name="resultsDataGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="293" Width="713"/>
+                </Grid>
             </TabItem>
         </TabControl>
 

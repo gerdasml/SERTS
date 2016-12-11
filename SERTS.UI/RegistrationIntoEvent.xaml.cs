@@ -1,4 +1,5 @@
 ﻿using SERTS.Core;
+using SERTS.Core.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace SERTS.UI
     /// </summary>
     public partial class RegistrationIntoEvent : Window
     {
+        public event EventHandler<Student> OnStudentAdded;
+
         public RegistrationIntoEvent(int eventId, IDataManager manager)
         {
             InitializeComponent();
@@ -30,12 +33,16 @@ namespace SERTS.UI
 
         private void cancelAddParticipant_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void addParticipant_Click(object sender, RoutedEventArgs e)
         {
-
+            var student = studentsListBox.SelectedItem as Student;
+            if (student == null)
+                return;
+            OnStudentAdded?.Invoke(this, student);
+            this.Close();
         }
     }
 }
