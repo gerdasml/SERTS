@@ -96,7 +96,18 @@
                     <TextBlock x:Name="label6" Text="Maksimalus dalyvių skaičius"  TextWrapping="Wrap" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Height="34" Width="92"/>
                     <Label x:Name="label7" Content="" HorizontalAlignment="Left" Margin="10,276,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="eventDescriptionBox" HorizontalAlignment="Left" Height="37" Margin="104,41,0,0" TextWrapping="Wrap" AcceptsReturn="True" Text="" VerticalAlignment="Top" Width="168"/>
-                    <TextBox x:Name="eventSportBox" HorizontalAlignment="Left" Height="23" Margin="104,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="168"/>
+                    <ComboBox x:Name="eventSportBox" SelectedValuePath="Content" HorizontalAlignment="Left" Height="23" Margin="104,122,0,0" Text="" VerticalAlignment="Top" Width="168">
+                        <ComboBoxItem Content="Krepšinis"/>
+                        <ComboBoxItem Content="Futbolas"/>
+                        <ComboBoxItem Content="Tinklinis"/>
+                        <ComboBoxItem Content="Lengvoji atletika"/>
+                        <ComboBoxItem Content="Bėgimas"/>
+                        <ComboBoxItem Content="Rankinis"/>
+                        <ComboBoxItem Content="Plaukimas"/>
+                        <ComboBoxItem Content="Tenisas"/>
+                        <ComboBoxItem Content="Šuolis į tolį"/>
+                        <ComboBoxItem Content="Kita"/>
+                    </ComboBox>
                     <xctk:MaskedTextBox x:Name="dateTimeBox" Mask="0000-00-00 00:00" CaretIndex="0" ValueDataType="{x:Type s:DateTime}" HorizontalAlignment="Left" Height="23" Margin="104,157,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="117"/>
                     <xctk:IntegerUpDown x:Name="ageLimitBox" HorizontalAlignment="Left" Height="23" Margin="104,198,0,0" Minimum="6" Maximum="21" Value="6" VerticalAlignment="Top" Width="64"/>
                     <xctk:IntegerUpDown x:Name="maxParticipantBox" HorizontalAlignment="Left" Height="23" Margin="104,89,0,0" Minimum="0" Value="0" VerticalAlignment="Top" Width="64"/>

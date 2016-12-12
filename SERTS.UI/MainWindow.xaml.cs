@@ -87,7 +87,7 @@ namespace SERTS.UI
             string name = eventNameBox.Text;
             string description = eventDescriptionBox.Text;
             string eventType =  "Individualus";
-            string sport = eventSportBox.Text;
+            string sport = eventSportBox.SelectedValue.ToString();
             DateTime dateTime = DateTime.Parse(dateTimeBox.Text);
             short ageLimit = (short)ageLimitBox.Value.Value;
             short maxParticipant = (short)maxParticipantBox.Value.Value;
@@ -168,7 +168,10 @@ namespace SERTS.UI
         {
             var selectedStudent = studentsListBox.SelectedValue as Student;
             if (selectedStudent == null)
+            {
+                System.Windows.MessageBox.Show("Nepasirinktas mokinys", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return; // ?
+            }
             addStudentButton.Content = "Atnaujinti mokinį";
             studentNameBox.Text = selectedStudent.Name;
             studentSurnameBox.Text = selectedStudent.Surname;
@@ -198,7 +201,10 @@ namespace SERTS.UI
         {
             var selectedStudent = studentsListBox.SelectedValue as Student;
             if (selectedStudent == null)
+            {
+                System.Windows.MessageBox.Show("Nepasirinktas mokinys", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            }
             _manager.DeleteStudent(selectedStudent.Id);
             System.Windows.MessageBox.Show("Mokinys sėkmingai ištrintas!");
             studentsListBox.ItemsSource = _manager.GetStudents();
@@ -208,11 +214,14 @@ namespace SERTS.UI
         {
             var selectedEvent = eventsListBox.SelectedValue as Event;
             if (selectedEvent == null)
+            {
+                System.Windows.MessageBox.Show("Nepasirinktas renginys", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return; // ?
+            }
             addEventButton.Content = "Atnaujinti renginį";
             eventNameBox.Text = selectedEvent.Name;
             eventDescriptionBox.Text = selectedEvent.Description;
-            eventSportBox.Text = selectedEvent.Sport;
+            eventSportBox.SelectedValue = selectedEvent.Sport;
             dateTimeBox.Value = selectedEvent.DateTime;
             ageLimitBox.Value = selectedEvent.AgeLimit;
             maxParticipantBox.Value = selectedEvent.ParticipantsAllowed;
@@ -243,7 +252,10 @@ namespace SERTS.UI
         {
             var selectedEvent = eventsListBox.SelectedValue as Event;
             if (selectedEvent == null)
+            {
+                System.Windows.MessageBox.Show("Nepasirinktas renginys", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            }
             _manager.DeleteEvent(selectedEvent.Number);
             System.Windows.MessageBox.Show("Renginys sėkmingai ištrintas!");
             eventsListBox.ItemsSource = _manager.GetEvents();
@@ -254,7 +266,10 @@ namespace SERTS.UI
             var selectedEvent = eventsListBox.SelectedValue as Event;
             var selectedStudent = registeredStudents.SelectedValue as Student;
             if (selectedEvent == null || selectedStudent == null)
+            {
+                System.Windows.MessageBox.Show("Nepasirinktas renginys arba mokinys", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            }
             _manager.DeleteParticipant(selectedStudent.Id, selectedEvent.Number);
             registeredStudents.ItemsSource = _manager.GetParticipants(selectedEvent.Number);
         }
@@ -263,7 +278,10 @@ namespace SERTS.UI
         {
             var selectedEvent = eventsListBox.SelectedValue as Event;
             if (selectedEvent == null)
+            {
+                System.Windows.MessageBox.Show("Nepasirinktas renginys", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            }
             var w = new RegistrationIntoEvent(selectedEvent.Number, _manager);
             w.OnStudentAdded += (s, selectedStudent) =>
              {
@@ -278,7 +296,10 @@ namespace SERTS.UI
             var selectedEvent = eventsListBox.SelectedValue as Event;
             var selectedStudent = registeredStudents.SelectedValue as Student;
             if (selectedEvent == null || selectedStudent == null)
+            {
+                System.Windows.MessageBox.Show("Nepasirinktas mokinys arba renginys", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            }
             var currentResult = _manager.GetResult(selectedEvent.Number, selectedStudent.Id);
             var rw = new ResultWindow(currentResult);
             rw.OnResultAdded += (s, newResult) =>

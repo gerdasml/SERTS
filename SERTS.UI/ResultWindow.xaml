@@ -8,10 +8,12 @@
         mc:Ignorable="d"
         Title="ResultWindow" Height="222.18" Width="234.586">
     <Grid>
-        <xctk:ShortUpDown x:Name="resultBox" HorizontalAlignment="Left" Height="29" Margin="127,30,0,0" Minimum="0" VerticalAlignment="Top" Width="74"/>
-        <Label x:Name="label" Content="Rezultatas:" HorizontalAlignment="Left" Margin="22,30,0,0" VerticalAlignment="Top" Width="85"/>
+        <xctk:ShortUpDown x:Name="resultBox" HorizontalAlignment="Left" Height="29" Margin="128,68,0,0" Minimum="0" VerticalAlignment="Top" Width="74"/>
+        <Label x:Name="label" Content="Rezultatas:" HorizontalAlignment="Left" Margin="22,71,0,0" VerticalAlignment="Top" Width="85"/>
         <Button x:Name="changeResultCancel" Content="CANCEL" HorizontalAlignment="Left" Margin="127,124,0,0" VerticalAlignment="Top" Width="75" Click="changeResultCancel_Click"/>
         <Button x:Name="changeResultOkButton" Content="OK" HorizontalAlignment="Left" Margin="32,124,0,0" VerticalAlignment="Top" Width="75" Click="changeResultOkButton_Click"/>
+        <Button x:Name="camera" Content="Look at yourself" HorizontalAlignment="Left" Margin="116,21,0,0" VerticalAlignment="Top" Width="101" Click="camera_Click"/>
+        <Button x:Name="importImage" Content="Import image" HorizontalAlignment="Left" Margin="15,21,0,0" VerticalAlignment="Top" Width="88" Click="importImage_Click"/>
 
     </Grid>
 </Window>
