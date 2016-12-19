@@ -35,6 +35,8 @@ namespace SERTS.UI
             eventsListBox.ItemsSource = events;
             var students = _manager.GetStudents();
             studentsListBox.ItemsSource = students;
+
+            schoolBox.ItemsSource = _manager.GetStudents().Select(x => x.School).Distinct();
             FillResults();
         }
 
@@ -84,84 +86,105 @@ namespace SERTS.UI
 
         private void addEventButton_Click(object sender, RoutedEventArgs e)
         {
-            string name = eventNameBox.Text;
-            string description = eventDescriptionBox.Text;
-            string eventType =  "Individualus";
-            string sport = eventSportBox.SelectedValue.ToString();
-            DateTime dateTime = DateTime.Parse(dateTimeBox.Text);
-            short ageLimit = (short)ageLimitBox.Value.Value;
-            short maxParticipant = (short)maxParticipantBox.Value.Value;
-            bool guest = guestBox.IsChecked.Value;
-            bool judge = judgeBox.IsChecked.Value;
-            bool sponsor = sponsorBox.IsChecked.Value;
-
-            var ev = new Event
+            try
             {
-                Name = name,
-                Description = description,
-                EventType = eventType,
-                Sport = sport,
-                DateTime = dateTime,
-                AgeLimit = ageLimit,
-                ParticipantsAllowed = maxParticipant,
-                Guest = guest,
-                Judge = judge,
-                Sponcor = sponsor,
-                Latitude = 0,
-                Longitude = 0
-            };
 
-            var selectedEvent = eventsListBox.SelectedValue as Event;
-            if (selectedEvent == null) // niekas nepasirinkta sarase, reiskia pridedinejam
-            {
-                _manager.AddEvent(ev);
-                System.Windows.MessageBox.Show("Renginys sėkmingai pridėtas!");
+                string name = eventNameBox.Text;
+                string description = eventDescriptionBox.Text;
+                string eventType =  "Individualus";
+                string sport = eventSportBox.SelectedValue.ToString();
+                DateTime dateTime = DateTime.Parse(dateTimeBox.Text);
+                short ageLimit = (short)ageLimitBox.Value.Value;
+                short maxParticipant = (short)maxParticipantBox.Value.Value;
+                bool guest = guestBox.IsChecked.Value;
+                bool judge = judgeBox.IsChecked.Value;
+                bool sponsor = sponsorBox.IsChecked.Value;
+
+                var ev = new Event
+                {
+                    Name = name,
+                    Description = description,
+                    EventType = eventType,
+                    Sport = sport,
+                    DateTime = dateTime,
+                    AgeLimit = ageLimit,
+                    ParticipantsAllowed = maxParticipant,
+                    Guest = guest,
+                    Judge = judge,
+                    Sponcor = sponsor,
+                    Latitude = 0,
+                    Longitude = 0
+                };
+
+                var selectedEvent = eventsListBox.SelectedValue as Event;
+                if (selectedEvent == null) // niekas nepasirinkta sarase, reiskia pridedinejam
+                {
+                    _manager.AddEvent(ev);
+                    System.Windows.MessageBox.Show("Renginys sėkmingai pridėtas!");
+                }
+                else
+                {
+                    _manager.UpdateEvent(selectedEvent.Number, ev);
+                    System.Windows.MessageBox.Show("Renginio informacija sėkmingai atnaujinta!");
+                }
+                eventsListBox.ItemsSource = _manager.GetEvents();
+
             }
-            else
+            catch
             {
-                _manager.UpdateEvent(selectedEvent.Number, ev);
-                System.Windows.MessageBox.Show("Renginio informacija sėkmingai atnaujinta!");
+                System.Windows.MessageBox.Show("Neteisingai ivesti duomenys", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            eventsListBox.ItemsSource = _manager.GetEvents();
-
 
         }
 
         private void addStudentButton_Click(object sender, RoutedEventArgs e)
         {
-            string name = studentNameBox.Text;
-            string surname = studentSurnameBox.Text;
-            string email = emailBox.Text;
-            DateTime dob = DateTime.Parse(DOBBox.Text);
-            string phone = phoneNumberBox.Text;
-            string studentClass = classBox.Text;
-            string school = schoolBox.Text;
-            bool guest = studentGuestBox.IsChecked.Value;
+            try
+            {
 
-            var st = new Student
-            {
-                Name = name,
-                Surname = surname,
-                Email = email,
-                DOB = dob,
-                PhoneNumber = phone,
-                Class = studentClass,
-                School = school,
-                Guest = guest
-            };
+                string name = studentNameBox.Text;
+                string surname = studentSurnameBox.Text;
+                string email = emailBox.Text;
+                DateTime dob = DateTime.Parse(DOBBox.Text);
+                string phone = phoneNumberBox.Text;
+                string studentClass = classBox.Text;
+                string school = schoolBox.Text;
+                bool guest = studentGuestBox.IsChecked.Value;
+            
+                var st = new Student
+                {
+                    Name = name,
+                    Surname = surname,
+                    Email = email,
+                    DOB = dob,
+                    PhoneNumber = phone,
+                    Class = studentClass,
+                    School = school,
+                    Guest = guest
+                };
+            
+                var selectedStudent = studentsListBox.SelectedValue as Student;
 
-            var selectedStudent = studentsListBox.SelectedValue as Student;
-            if (selectedStudent == null) // niekas nepasirinkta sarase, reiskia pridedinejam
-            {
-                _manager.AddStudent(st);
-                System.Windows.MessageBox.Show("Mokinys sėkmingai pridėtas!");
+                if (selectedStudent == null) // niekas nepasirinkta sarase, reiskia pridedinejam
+                {
+                    _manager.AddStudent(st);
+
+                    System.Windows.MessageBox.Show("Mokinys sėkmingai pridėtas!");
+                }
+                else
+                {
+                    _manager.UpdateStudent(selectedStudent.Id, st);
+                    System.Windows.MessageBox.Show("Mokinio informacija sėkmingai atnaujinta!");
+                }
+                studentsListBox.ItemsSource = _manager.GetStudents();
+
+
+                schoolBox.ItemsSource = _manager.GetStudents().Select(x => x.School).Distinct();
             }
-            else
+            catch
             {
-                _manager.UpdateStudent(selectedStudent.Id, st);
-                System.Windows.MessageBox.Show("Mokinio informacija sėkmingai atnaujinta!");
+                System.Windows.MessageBox.Show("Neteisingai ivesti duomenys", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            studentsListBox.ItemsSource = _manager.GetStudents();
         }
 
         private void studentsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -169,7 +192,7 @@ namespace SERTS.UI
             var selectedStudent = studentsListBox.SelectedValue as Student;
             if (selectedStudent == null)
             {
-                System.Windows.MessageBox.Show("Nepasirinktas mokinys", "", MessageBoxButton.OK, MessageBoxImage.Error);
+               // System.Windows.MessageBox.Show("Nepasirinktas mokinys", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return; // ?
             }
             addStudentButton.Content = "Atnaujinti mokinį";
@@ -208,6 +231,9 @@ namespace SERTS.UI
             _manager.DeleteStudent(selectedStudent.Id);
             System.Windows.MessageBox.Show("Mokinys sėkmingai ištrintas!");
             studentsListBox.ItemsSource = _manager.GetStudents();
+
+
+            schoolBox.ItemsSource = _manager.GetStudents().Select(x => x.School).Distinct();
         }
 
         private void eventsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

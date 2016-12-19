@@ -7,32 +7,34 @@
         xmlns:local="clr-namespace:SERTS.UI"
          xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="487.553" Width="747">
+        Title="MainWindow" Height="487.553" Width="747" ResizeMode="NoResize">
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="593" VerticalAlignment="Top" Width="739">
             <TabItem Header="Mokiniai">
                 <Grid Background="#FF494444" Margin="0,0,0,137">
-                    <Label x:Name="label9" Content="Vardas" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label10" Content="Pavardė" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label11" Content="El. paštas" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label12" Content="Mokykla" HorizontalAlignment="Left" Margin="10,196,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label13" Content="Tel. nr" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label14" Content="Klasė" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label15" Content="Gimimo data" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label16" Content="Ar svečias" HorizontalAlignment="Left" Margin="10,227,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="studentNameBox" HorizontalAlignment="Left" Height="23" Margin="115,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159"/>
-                    <TextBox x:Name="studentSurnameBox" HorizontalAlignment="Left" Height="23" Margin="115,44,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159"/>
-                    <TextBox x:Name="emailBox" HorizontalAlignment="Left" Height="23" Margin="115,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159"/>
-                    <xctk:MaskedTextBox x:Name="DOBBox" Mask="0000-00-00" CaretIndex="0" ValueDataType="{x:Type s:DateTime}" HorizontalAlignment="Left" Height="23" Margin="115,107,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="105"/>
-                    <xctk:MaskedTextBox x:Name="phoneNumberBox" Mask="+37\000000000" CaretIndex="0" ValueDataType="{x:Type s:DateTime}" HorizontalAlignment="Left" Height="23" Margin="115,138,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="105"/>
-                    <TextBox x:Name="classBox" HorizontalAlignment="Left" Height="23" Margin="115,169,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159"/>
-                    <TextBox x:Name="schoolBox" HorizontalAlignment="Left" Height="23" Margin="115,200,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159"/>
-                    <CheckBox x:Name="studentGuestBox" Content="" HorizontalAlignment="Left" Margin="115,233,0,0" VerticalAlignment="Top"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="205*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="label9" Content="Vardas" HorizontalAlignment="Stretch" Margin="10,10,0,0" VerticalAlignment="Stretch" Grid.RowSpan="2"/>
+                    <Label x:Name="label10" Content="Pavardė" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Label x:Name="label11" Content="El. paštas" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Label x:Name="label12" Content="Mokykla" HorizontalAlignment="Left" Margin="10,178,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Label x:Name="label13" Content="Tel. nr" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Label x:Name="label14" Content="Klasė" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Label x:Name="label15" Content="Gimimo data" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Label x:Name="label16" Content="Ar svečias" HorizontalAlignment="Left" Margin="10,209,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <TextBox x:Name="studentNameBox" HorizontalAlignment="Left" Height="23" Margin="115,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" Grid.RowSpan="2"/>
+                    <TextBox x:Name="studentSurnameBox" HorizontalAlignment="Left" Height="23" Margin="115,26,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" Grid.Row="1"/>
+                    <TextBox x:Name="emailBox" HorizontalAlignment="Left" Height="23" Margin="115,58,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" Grid.Row="1"/>
+                    <xctk:MaskedTextBox x:Name="DOBBox" Mask="0000-00-00" CaretIndex="0" ValueDataType="{x:Type s:DateTime}" HorizontalAlignment="Left" Height="23" Margin="115,89,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="105" Grid.Row="1"/>
+                    <xctk:MaskedTextBox x:Name="phoneNumberBox" Mask="+37\000000000" CaretIndex="0" ValueDataType="{x:Type s:DateTime}" HorizontalAlignment="Left" Height="23" Margin="115,120,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="105" Grid.Row="1"/>
+                    <TextBox x:Name="classBox" HorizontalAlignment="Left" Height="23" Margin="115,151,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159" Grid.Row="1"/>
+                    <ComboBox x:Name="schoolBox" IsEditable="True" HorizontalAlignment="Left" Height="23" Margin="115,182,0,0" VerticalAlignment="Top" Width="159" Grid.Row="1"/>
+                    <CheckBox x:Name="studentGuestBox" Content="" HorizontalAlignment="Left" Margin="115,215,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                    <Button x:Name="deleteStudentButton" Content="Ištrinti mokinį" HorizontalAlignment="Left" Margin="366,344,0,0" VerticalAlignment="Top" Width="100" Click="deleteStudentButton_Click" Grid.Row="1"/>
 
-                    <Button x:Name="addStudentButton" Content="Pridėti mokinį" HorizontalAlignment="Left" Margin="103,276,0,0" VerticalAlignment="Top" Width="117" Click="addStudentButton_Click"/>
-                    <Button x:Name="deleteStudentButton" Content="Ištrinti mokinį" HorizontalAlignment="Left" Margin="305,330,0,0" VerticalAlignment="Top" Width="100" Click="deleteStudentButton_Click"/>
-
-                    <ListBox x:Name="studentsListBox" SelectionChanged="studentsListBox_SelectionChanged" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" Height="303" Width="428" ItemsSource="{Binding list}">
+                    <ListBox x:Name="studentsListBox" SelectionChanged="studentsListBox_SelectionChanged" HorizontalAlignment="Left" Margin="295,10,0,0" VerticalAlignment="Top" Height="303" Width="428" ItemsSource="{Binding list}" Grid.RowSpan="2">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
@@ -52,7 +54,11 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Button x:Name="deselectAllStudentts" Content="Atžymėti pasirinkimą" HorizontalAlignment="Left" Margin="431,330,0,0" VerticalAlignment="Top" Width="122" Click="deselectAllStudentts_Click"/>
+                    <Button x:Name="deselectAllStudentts" Content="Atžymėti pasirinkimą" HorizontalAlignment="Left" Margin="568,344,0,0" VerticalAlignment="Top" Width="122" Click="deselectAllStudentts_Click" Grid.Row="1"/>
+                    <Rectangle HorizontalAlignment="Left" Height="417" Stroke="#FF40D1D1" VerticalAlignment="Top" Width="286" StrokeThickness="5" RadiusY="2.5" RadiusX="2.5" Grid.RowSpan="2" Margin="4,1,0,0"/>
+                    <Button x:Name="addStudentButton" Content="Pridėti mokinį" HorizontalAlignment="Left" Margin="74,363,0,0" VerticalAlignment="Top" Width="117" Click="addStudentButton_Click" Grid.Row="1"/>
+                    <Rectangle HorizontalAlignment="Left" Height="324" Margin="286,1,0,0" RadiusY="7.5" RadiusX="7.5" Stroke="#FF40D1D1" StrokeThickness="5" VerticalAlignment="Top" Width="443" Grid.RowSpan="2"/>
+                    <Rectangle HorizontalAlignment="Left" Height="98" Margin="286,302,0,0" RadiusY="7.5" RadiusX="7.5" Stroke="#FF40D1D1" StrokeThickness="5" VerticalAlignment="Top" Width="443" Grid.Row="1"/>
 
                 </Grid>
             </TabItem>
@@ -121,11 +127,24 @@
                     <Button x:Name="unregisterStudentButton" Content="Išregistruoti mokinį" HorizontalAlignment="Left" Margin="568,364,0,0" VerticalAlignment="Top" Width="155" Click="unregisterStudentButton_Click"/>
                     <Button x:Name="deselectEventsButton" Content="Atžymėti pasirinkimą" HorizontalAlignment="Left" Margin="295,364,0,0" VerticalAlignment="Top" Width="155" Click="deselectEventsButton_Click"/>
                     <Button x:Name="pointsButton" Content="Taškai" HorizontalAlignment="Left" Margin="474,344,0,0" VerticalAlignment="Top" Width="75" Click="pointsButton_Click"/>
+                    <Rectangle HorizontalAlignment="Left" Height="425" RadiusY="7.5" RadiusX="7.5" Stroke="#FF40D1D1" StrokeThickness="5" VerticalAlignment="Top" Width="290"/>
+                    <Rectangle HorizontalAlignment="Left" Height="329" RadiusY="7.5" RadiusX="7.5" Stroke="#FF40D1D1" StrokeThickness="5" VerticalAlignment="Top" Width="447" Margin="286,0,0,0"/>
+                    <Rectangle HorizontalAlignment="Left" Height="101" RadiusY="7.5" RadiusX="7.5" Stroke="#FF40D1D1" StrokeThickness="5" VerticalAlignment="Top" Width="447" Margin="286,324,0,0"/>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Rezultatai">
                 <Grid Background="#FF494444">
-                    <DataGrid x:Name="resultsDataGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="293" Width="713"/>
+                    <DataGrid x:Name="resultsDataGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="293" Width="713">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FFF3D6E6" />
+                                <Setter Property="BorderBrush" Value="Black" />
+                                <Setter Property="BorderThickness" Value="1" />
+                                <Setter Property="Padding" Value="3" />
+                            </Style>
+                        </DataGrid.Resources>
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>
